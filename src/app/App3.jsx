@@ -22,7 +22,7 @@ const init = {
 }
 
 const App = () => {
-    const [state, setState] = useState({...init});
+    const [state, setState] = useState(deepClone(init));
 
     // Util function
     const mapStateToValues = (state) => {
@@ -55,7 +55,11 @@ const App = () => {
         if(isValid) {
             console.log(state);
         } else {
-            console.log(errors)
+            const oldState = deepClone(state);
+            Object.keys[errors].forEach((key) => {
+                oldState[key].error = errors[key]
+            });
+            setState(oldState);
         }
     };
 
